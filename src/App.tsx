@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PaymentComponent } from "./components/PaymentComponent";
 import { LightUIFactory } from "./factory/LightUIFactory";
 import { DarkUIFactory } from "./factory/DarkUIFactory";
+import "./index.css";
 
 const App = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -22,7 +23,7 @@ const App = () => {
         minHeight: "100vh",
         backgroundColor: isLight ? "#f3f4f6" : "#0f172a",
         transition: "background-color 0.4s ease",
-        padding: "24px",
+        padding: "30px",
         fontFamily: "Inter, sans-serif",
         boxSizing: "border-box",
         display: "flex",
@@ -42,7 +43,7 @@ const App = () => {
         <h1
           style={{
             margin: 0,
-            fontSize: "28px",
+            fontSize: "32px",
             color: isLight ? "#111827" : "#f9fafb",
           }}
         >
