@@ -8,13 +8,13 @@ const App = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   const uiFactory =
-    theme === "light" ? new LightUIFactory() : new DarkUIFactory();
+    theme === "dark" ? new LightUIFactory() : new DarkUIFactory();
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === "light" ? "dark" : "light"));
   };
 
-  const isLight = theme === "light";
+  const isLight = theme === "dark";
 
   return (
     <div
