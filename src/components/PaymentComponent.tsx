@@ -49,6 +49,7 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
         timer: 5000,
         timerProgressBar: true,
       });
+      setNotificationType("Seleccionar");
     } catch (error) {
       console.error(error);
       Swal.fire({
@@ -83,71 +84,26 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
             de Pago
           </>
         </h2>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "10px",
-          }}
-        >
-          <span style={{ color: "#B4B4B4" }}>Método de Pago:</span>
-          <span style={{ color: "#FFFFFF" }}>{paymentType}</span>
-        </div>
-        <div
-          style={{
-            height: "0.5px",
-            backgroundColor: "rgba(196, 196, 196, 0.3)",
-            marginBottom: "15px",
-          }}
-        />
+        {uiFactory.createKeyValueLine("Método de Pago:", paymentType)}
+        {uiFactory.createKeyValueLine(
+          "Monto Inicial:",
+          `$${Number(amount).toFixed(2)} USD`
+        )}
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "12px",
-          }}
-        >
-          <span style={{ color: "#B4B4B4" }}>Monto Inicial:</span>
-          <span style={{ color: "#FFFFFF" }}>${amount} USD</span>
-        </div>
-        <div
-          style={{
-            height: "1px",
-            backgroundColor: "rgba(196, 196, 196, 0.3)",
-            marginBottom: "15px",
-          }}
-        />
+        {uiFactory.createKeyValueLine(
+          "Total a Pagar:",
+          `$${Number(response).toFixed(2)} USD`,
+          {
+            labelStyle: { fontSize: "16px", fontWeight: 600 },
+            valueStyle: { fontWeight: 600, color: "#2899D8", fontSize: "18px" },
+          }
+        )}
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "4px",
-          }}
-        >
-          <span style={{ color: "#B4B4B4", fontWeight: 600 }}>
-            Total a Pagar:
-          </span>
-          <span
-            style={{
-              color: "#2899D8",
-              fontWeight: 600,
-              fontSize: "18px",
-              marginBottom: "35px",
-            }}
-          >
-            ${Number(response).toFixed(2)} USD
-          </span>
-        </div>
+        {uiFactory.createLabel("Tipo de Notificación a Enviar", {
+          htmlFor: "notification",
+          fontSize: "16px",
+        })}
 
-        <label
-          htmlFor="notification"
-          className="block text-[10px] font-semibold mb-1"
-          style={{ color: "#FFF" }}
-        >
-          Tipo de Notificación
-        </label>
         {uiFactory.createSelect(
           [
             { label: "Seleccionar", value: "Seleccionar" },
@@ -160,7 +116,7 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
           (e) => setNotificationType(e.target.value)
         )}
 
-        <div style={{ display: "flex", gap: "12px", marginTop: "20px" }}>
+        <div style={{ display: "flex", gap: "12px", marginTop: "10px" }}>
           {uiFactory.createButton(
             <>
               <i className="fas fa-rotate-left text-white mr-2"></i> Realizar
@@ -175,7 +131,7 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
               notificación
             </>,
             handleSendNotification,
-            notificationType === "Seleccionar" // 👈 estará desactivado si no se selecciona
+            notificationType === "Seleccionar"
           )}
         </div>
       </>

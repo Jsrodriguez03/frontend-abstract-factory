@@ -17,4 +17,24 @@ export interface UIFactory {
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
   ): JSX.Element;
   createContainer(children: React.ReactNode): JSX.Element;
+
+  createKeyValueLine(
+    label: string,
+    value: string | number,
+    options?: {
+      labelStyle?: React.CSSProperties;
+      valueStyle?: React.CSSProperties;
+    }
+  ): JSX.Element;
+
+  createLabel(
+    text: string,
+    options?: {
+      htmlFor?: string;
+      color?: string;
+      fontSize?: string;
+      fontWeight?: number;
+      margin?: string;
+    }
+  ): JSX.Element;
 }
