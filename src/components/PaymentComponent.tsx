@@ -13,13 +13,9 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
   const [amount, setAmount] = useState("");
   const isFormValid =
     amount.trim() !== "" && paymentType !== "Seleccione un Método";
-  const [notificationType, setNotificationType] = useState("EMAIL");
+  const [notificationType, setNotificationType] = useState("Seleccionar");
   const [response, setResponse] = useState<any>(null);
   const [showSummary, setShowSummary] = useState(false); // 👈 nueva vista
-
-  const handlePayment = async () => {
-    setShowSummary(true);
-  };
 
   const handleSendNotification = async () => {
     try {
@@ -29,31 +25,36 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
       setResponse(res.data);
       Swal.fire({
         toast: true,
-        position: "bottom-end", // esquina superior derecha
+        position: "bottom-end",
         icon: "success",
         title: "¡Notificación Enviada!",
         showConfirmButton: false,
-        timer: 5000, // se cierra automáticamente en 2 segundos
+        timer: 5000,
         timerProgressBar: true,
       });
     } catch (error) {
       console.error(error);
       Swal.fire({
         toast: true,
-        position: "top-end",
+        position: "bottom-end",
         icon: "error",
-        title: "Error al enviar notificación",
+        title:
+          "Error al enviar notificación, seleccione un tipo de notificación",
         showConfirmButton: false,
-        timer: 2000,
+        timer: 5000,
         timerProgressBar: true,
       });
     }
   };
 
+  const handlePayment = async () => {
+    setShowSummary(true);
+  };
+
   const handleNewPayment = () => {
     setAmount("");
     setPaymentType("Seleccione un Método");
-    setNotificationType("EMAIL");
+    setNotificationType("Seleccionar");
     setResponse(null);
     setShowSummary(false);
   };
@@ -64,7 +65,10 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
         <h2
           style={{ fontSize: "22px", fontWeight: "600", marginBottom: "20px" }}
         >
-          Resumen del Pago
+          <>
+            <i className="fas fa-receipt text-white text-lg mr-2"></i> Factura
+            de Pago
+          </>
         </h2>
         <p>
           <strong>Método:</strong> {paymentType}
@@ -73,7 +77,7 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
           <strong>Monto:</strong> ${amount}
         </p>
         <p>
-          <strong>Total a Pagar:</strong> ${amount}
+          <strong>Total a Pagar:</strong> $21
         </p>
 
         <label
@@ -85,6 +89,7 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
         </label>
         {uiFactory.createSelect(
           [
+            { label: "Seleccionar", value: "Seleccionar" },
             { label: "Email", value: "EMAIL" },
             { label: "SMS", value: "SMS" },
             { label: "PUSH", value: "PUSH" },
@@ -132,7 +137,13 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
         setAmount(e.target.value)
       )}
 
-      {uiFactory.createButton("Pagar", handlePayment, !isFormValid)}
+      {uiFactory.createButton(
+        <>
+          <i className="fas fa-calculator text-white mr-2"></i> Calcular Pago
+        </>,
+        handlePayment,
+        !isFormValid
+      )}
     </>
   );
 };
