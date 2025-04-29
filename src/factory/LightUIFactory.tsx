@@ -2,18 +2,22 @@
 import { UIFactory } from "./UIFactory";
 
 export class LightUIFactory implements UIFactory {
-  createButton(label: string, onClick: () => void): JSX.Element {
+  createButton(
+    label: string,
+    onClick: () => void,
+    disabled = false
+  ): JSX.Element {
     return (
       <button
         onClick={onClick}
         style={{
-          backgroundColor: "#2563eb",
-          color: "#ffffff",
+          backgroundColor: disabled ? "#19439B" : "#2563eb",
+          color: disabled ? "#B4B4B4" : "#ffffff",
           padding: "14px 24px",
           borderRadius: "10px",
           border: "none",
-          marginTop: "24px",
-          cursor: "pointer",
+          marginTop: "8px",
+          cursor: disabled ? "not-allowed" : "pointer",
           fontSize: "16px",
           fontWeight: "600",
           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
@@ -43,8 +47,9 @@ export class LightUIFactory implements UIFactory {
           padding: "14px 20px",
           borderRadius: "10px",
           border: "1px solid #d1d5db",
-          width: "92%",
-          marginTop: "12px",
+          width: "91%",
+          marginTop: "6px",
+          marginBottom: "24px",
           fontSize: "16px",
           outline: "none",
           transition: "border-color 0.3s ease",
@@ -71,7 +76,8 @@ export class LightUIFactory implements UIFactory {
           borderRadius: "10px",
           border: "1px solid #d1d5db",
           width: "100%",
-          marginTop: "12px",
+          marginTop: "6px",
+          marginBottom: "24px",
           fontSize: "16px",
           outline: "none",
           transition: "border-color 0.3s ease",
@@ -94,9 +100,9 @@ export class LightUIFactory implements UIFactory {
         style={{
           backgroundColor: "#ffffff",
           color: "#111827",
-          padding: "48px",
+          padding: "30px",
           borderRadius: "12px",
-          maxWidth: "500px",
+          maxWidth: "450px",
           margin: "60px auto",
           boxShadow: "0 8px 20px rgba(0, 0, 0, 0.08)",
         }}

@@ -1,6 +1,11 @@
 // src/factory/UIFactory.ts
 export interface UIFactory {
-  createButton(label: string, onClick: () => void): JSX.Element;
+  createButton(
+    label: string,
+    onClick: () => void,
+    disabled?: boolean
+  ): JSX.Element;
+
   createInput(
     placeholder: string,
     value: string,

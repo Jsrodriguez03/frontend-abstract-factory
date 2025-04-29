@@ -8,9 +8,11 @@ interface PaymentComponentProps {
 }
 
 export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
-  const [paymentType, setPaymentType] = useState("Seleccione");
-  const [notificationType, setNotificationType] = useState("Seleccione");
+  const [paymentType, setPaymentType] = useState("Seleccione un Método");
   const [amount, setAmount] = useState("");
+  const isFormValid =
+    amount.trim() !== "" && paymentType !== "Seleccione un Método";
+  const [notificationType, setNotificationType] = useState("Seleccione");
   const [response, setResponse] = useState<any>(null);
 
   const handlePayment = async () => {
@@ -26,16 +28,20 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
 
   return uiFactory.createContainer(
     <>
-      <h2 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "20px" }}>
+      <h1 style={{ fontSize: "24px", fontWeight: "700", marginBottom: "20px" }}>
         Calcular Pago
-      </h2>
+      </h1>
 
-      {uiFactory.createInput("Monto (USD)", amount, (e) =>
-        setAmount(e.target.value)
-      )}
-
+      <label
+        htmlFor="amount"
+        className="block text-[10px] font-semibold mb-1"
+        style={{ color: "#B4B4B4" }}
+      >
+        Método de Pago
+      </label>
       {uiFactory.createSelect(
         [
+          { label: "Seleccione un Método", value: "Seleccione un Método" },
           { label: "Tarjeta Crédito", value: "CREDIT_CARD" },
           { label: "Tarjeta Débito", value: "DEBIT_CARD" },
           { label: "PayPal", value: "PAYPAL" },
@@ -44,7 +50,18 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
         (e) => setPaymentType(e.target.value)
       )}
 
-      {uiFactory.createSelect(
+      <label
+        htmlFor="amount"
+        className="block text-[10px] font-semibold mb-1"
+        style={{ color: "#B4B4B4" }}
+      >
+        Monto
+      </label>
+      {uiFactory.createInput("Ingrese el monto", amount, (e) =>
+        setAmount(e.target.value)
+      )}
+
+      {/* {uiFactory.createSelect(
         [
           { label: "Email", value: "EMAIL" },
           { label: "SMS", value: "SMS" },
@@ -53,9 +70,9 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
         ],
         notificationType,
         (e) => setNotificationType(e.target.value)
-      )}
+      )} */}
 
-      {uiFactory.createButton("Pagar", handlePayment)}
+      {uiFactory.createButton("Pagar", handlePayment, !isFormValid)}
 
       {response && (
         <div style={{ marginTop: "32px" }}>

@@ -2,24 +2,33 @@
 import { UIFactory } from "./UIFactory";
 
 export class DarkUIFactory implements UIFactory {
-  createButton(label: string, onClick: () => void): JSX.Element {
+  createButton(
+    label: string,
+    onClick: () => void,
+    disabled = false
+  ): JSX.Element {
     return (
       <button
         onClick={onClick}
+        disabled={disabled}
         style={{
-          backgroundColor: "#4f46e5",
-          color: "#ffffff",
+          backgroundColor: disabled ? "#19439B" : "#155DFC",
+          color: disabled ? "#B4B4B4" : "#ffffff",
           padding: "14px 24px",
           borderRadius: "10px",
           border: "none",
-          marginTop: "24px",
-          cursor: "pointer",
+          marginTop: "8px",
+          cursor: disabled ? "not-allowed" : "pointer",
           fontSize: "16px",
           fontWeight: "600",
           transition: "background-color 0.3s ease",
         }}
-        onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#4338ca")}
-        onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#4f46e5")}
+        onMouseOver={(e) => {
+          e.currentTarget.style.backgroundColor = "#1447E6";
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.backgroundColor = "#155DFC";
+        }}
       >
         {label}
       </button>
@@ -43,8 +52,9 @@ export class DarkUIFactory implements UIFactory {
           padding: "14px 20px",
           borderRadius: "10px",
           border: "1px solid #374151",
-          width: "92%",
-          marginTop: "12px",
+          width: "91%",
+          marginTop: "6px",
+          marginBottom: "24px",
           fontSize: "16px",
           outline: "none",
           transition: "border-color 0.3s ease",
@@ -71,7 +81,8 @@ export class DarkUIFactory implements UIFactory {
           borderRadius: "10px",
           border: "1px solid #374151",
           width: "100%",
-          marginTop: "12px",
+          marginTop: "6px",
+          marginBottom: "24px",
           fontSize: "16px",
           outline: "none",
           transition: "border-color 0.3s ease",
@@ -94,9 +105,9 @@ export class DarkUIFactory implements UIFactory {
         style={{
           backgroundColor: "#1E2939",
           color: "#f9fafb",
-          padding: "48px",
+          padding: "30px",
           borderRadius: "12px",
-          maxWidth: "500px",
+          maxWidth: "450px",
           margin: "60px auto",
         }}
       >
