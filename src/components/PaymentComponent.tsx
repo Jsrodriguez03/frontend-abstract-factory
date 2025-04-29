@@ -17,11 +17,28 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
   const [response, setResponse] = useState<any>(null);
   const [showSummary, setShowSummary] = useState(false); // 👈 nueva vista
 
-  const handleSendNotification = async () => {
+  const handlePayment = async () => {
     try {
       const res = await axios.post("http://localhost:8080/payment/pay", null, {
         params: { paymentType, amount, notificationType },
       });
+      setResponse(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+
+    setShowSummary(true);
+  };
+
+  const handleSendNotification = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/payment/notification",
+        null,
+        {
+          params: { paymentType, amount, notificationType },
+        }
+      );
       setResponse(res.data);
       Swal.fire({
         toast: true,
@@ -45,10 +62,6 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
         timerProgressBar: true,
       });
     }
-  };
-
-  const handlePayment = async () => {
-    setShowSummary(true);
   };
 
   const handleNewPayment = () => {
@@ -77,7 +90,7 @@ export const PaymentComponent = ({ uiFactory }: PaymentComponentProps) => {
           <strong>Monto:</strong> ${amount}
         </p>
         <p>
-          <strong>Total a Pagar:</strong> $21
+          <strong>Total a Pagar:</strong> ${response}
         </p>
 
         <label
