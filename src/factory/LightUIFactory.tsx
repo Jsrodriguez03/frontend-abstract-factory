@@ -1,198 +1,39 @@
-// src/factory/LightUIFactory.tsx
+import { LightButton } from "../ui/ligth/LightButton";
+import { LightContainer } from "../ui/ligth/LightContainer";
+import { LightInput } from "../ui/ligth/LightInput";
+import { LightKeyValueLine } from "../ui/ligth/LightKeyValueLine";
+import { LightLabel } from "../ui/ligth/LightLabel";
+import { LightSelect } from "../ui/ligth/LightSelect";
 import { UIFactory } from "./UIFactory";
 
 export class LightUIFactory implements UIFactory {
-  createButton(
-    label: string,
-    onClick: () => void,
-    disabled = false
-  ): JSX.Element {
+  createButton(label, onClick, disabled) {
     return (
-      <button
-        onClick={onClick}
-        style={{
-          backgroundColor: disabled ? "#19439B" : "#2563eb",
-          color: disabled ? "#B4B4B4" : "#ffffff",
-          padding: "14px 24px",
-          borderRadius: "10px",
-          border: "none",
-          marginTop: "8px",
-          cursor: disabled ? "not-allowed" : "pointer",
-          fontSize: "16px",
-          fontWeight: "600",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          transition: "background-color 0.3s ease",
-        }}
-        onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#1d4ed8")}
-        onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#2563eb")}
-      >
+      <LightButton onClick={onClick} disabled={disabled}>
         {label}
-      </button>
+      </LightButton>
     );
   }
 
-  createInput(
-    placeholder: string,
-    value: string,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  ): JSX.Element {
+  createInput(placeholder, value, onChange) {
     return (
-      <input
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        style={{
-          backgroundColor: "#f9fafb",
-          color: "#111827",
-          padding: "14px 20px",
-          borderRadius: "10px",
-          border: "1px solid #d1d5db",
-          width: "91%",
-          marginTop: "6px",
-          marginBottom: "24px",
-          fontSize: "16px",
-          outline: "none",
-          transition: "border-color 0.3s ease",
-        }}
-        onFocus={(e) => (e.currentTarget.style.borderColor = "#2563eb")}
-        onBlur={(e) => (e.currentTarget.style.borderColor = "#d1d5db")}
-      />
+      <LightInput placeholder={placeholder} value={value} onChange={onChange} />
     );
   }
 
-  createSelect(
-    options: { label: string; value: string }[],
-    value: string,
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
-  ): JSX.Element {
-    return (
-      <select
-        value={value}
-        onChange={onChange}
-        style={{
-          backgroundColor: "#f9fafb",
-          color: "#111827",
-          padding: "14px 20px",
-          borderRadius: "10px",
-          border: "1px solid #d1d5db",
-          width: "100%",
-          marginTop: "6px",
-          marginBottom: "24px",
-          fontSize: "16px",
-          outline: "none",
-          transition: "border-color 0.3s ease",
-        }}
-        onFocus={(e) => (e.currentTarget.style.borderColor = "#2563eb")}
-        onBlur={(e) => (e.currentTarget.style.borderColor = "#d1d5db")}
-      >
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
-    );
+  createSelect(options, value, onChange) {
+    return <LightSelect options={options} value={value} onChange={onChange} />;
   }
 
-  createContainer(children: React.ReactNode): JSX.Element {
-    return (
-      <div
-        style={{
-          backgroundColor: "#ffffff",
-          color: "#111827",
-          padding: "30px",
-          borderRadius: "12px",
-          maxWidth: "450px",
-          margin: "60px auto",
-          boxShadow: "0 8px 20px rgba(0, 0, 0, 0.08)",
-        }}
-      >
-        {children}
-      </div>
-    );
+  createContainer(children) {
+    return <LightContainer>{children}</LightContainer>;
   }
 
-  // UIFactoryDark.ts
-  createKeyValueLine(
-    label: string,
-    value: string | number,
-    options?: {
-      labelStyle?: React.CSSProperties;
-      valueStyle?: React.CSSProperties;
-    }
-  ): JSX.Element {
-    return (
-      <>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "12px",
-          }}
-        >
-          <span
-            style={{
-              color: "#676E7A",
-              fontSize: "16px",
-              fontWeight: 400,
-              ...options?.labelStyle,
-            }}
-          >
-            {label}
-          </span>
-          <span
-            style={{
-              color: "#000",
-              fontSize: "16px",
-              fontWeight: 500,
-              ...options?.valueStyle,
-            }}
-          >
-            {value}
-          </span>
-        </div>
-        <div
-          style={{
-            height: "1px",
-            backgroundColor: "rgba(196, 196, 196)",
-            marginBottom: "15px",
-          }}
-        />
-      </>
-    );
+  createKeyValueLine(label, value, options) {
+    return <LightKeyValueLine label={label} value={value} options={options} />;
   }
 
-  createLabel(
-    text: string,
-    options?: {
-      htmlFor?: string;
-      color?: string;
-      fontSize?: string;
-      fontWeight?: number;
-      margin?: string;
-    }
-  ): JSX.Element {
-    const {
-      htmlFor,
-      color = "#000",
-      fontSize = "10px",
-      fontWeight = 500,
-      margin = "35px 0 2px 0",
-    } = options || {};
-
-    return (
-      <label
-        htmlFor={htmlFor}
-        style={{
-          color,
-          fontSize,
-          fontWeight,
-          margin,
-          display: "block",
-        }}
-      >
-        {text}
-      </label>
-    );
+  createLabel(text, options) {
+    return <LightLabel text={text} options={options} />;
   }
 }
