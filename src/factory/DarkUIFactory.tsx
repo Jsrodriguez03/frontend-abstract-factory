@@ -7,30 +7,24 @@ import { DarkSelect } from "../ui/dark/DarkSelect";
 import { UIFactory } from "./UIFactory";
 
 export class DarkUIFactory implements UIFactory {
-  createButton(label, onClick, disabled) {
-    return (
-      <DarkButton onClick={onClick} disabled={disabled}>
-        {label}
-      </DarkButton>
-    );
+  createButton(children, onClick, disabled?) {
+    return new DarkButton({ children, onClick, disabled }).render();
   }
 
   createInput(placeholder, value, onChange) {
-    return (
-      <DarkInput placeholder={placeholder} value={value} onChange={onChange} />
-    );
+    return new DarkInput({ placeholder, value, onChange }).render();
   }
 
   createSelect(options, value, onChange) {
-    return <DarkSelect options={options} value={value} onChange={onChange} />;
+    return new DarkSelect({ options, value, onChange }).render();
   }
 
   createContainer(children) {
-    return <DarkContainer>{children}</DarkContainer>;
+    return new DarkContainer({ children }).render();
   }
 
-  createKeyValueLine(label, value, options) {
-    return <DarkKeyValueLine label={label} value={value} options={options} />;
+  createKeyValueLine(label, value, styles?) {
+    return new DarkKeyValueLine({ label, value, styles }).render();
   }
 
   createLabel(text, options) {

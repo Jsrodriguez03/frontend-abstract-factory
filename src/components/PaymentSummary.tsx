@@ -1,5 +1,4 @@
 // src/components/PaymentSummary.tsx
-import React from "react";
 import { UIFactory } from "../factory/UIFactory";
 
 interface PaymentSummaryProps {

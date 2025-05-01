@@ -7,30 +7,27 @@ import { LightSelect } from "../ui/ligth/LightSelect";
 import { UIFactory } from "./UIFactory";
 
 export class LightUIFactory implements UIFactory {
-  createButton(label, onClick, disabled) {
-    return (
-      <LightButton onClick={onClick} disabled={disabled}>
-        {label}
-      </LightButton>
-    );
+  createButton(children, onClick, disabled?) {
+    return new LightButton({ children, onClick, disabled }).render();
   }
 
   createInput(placeholder, value, onChange) {
-    return (
-      <LightInput placeholder={placeholder} value={value} onChange={onChange} />
-    );
+    return new LightInput({ placeholder, value, onChange }).render();
   }
 
   createSelect(options, value, onChange) {
-    return <LightSelect options={options} value={value} onChange={onChange} />;
+    return new LightSelect({ options, value, onChange }).render();
   }
 
   createContainer(children) {
-    return <LightContainer>{children}</LightContainer>;
+    return new LightContainer({
+      children,
+      backgroundTheme: this.background,
+    }).render();
   }
 
-  createKeyValueLine(label, value, options) {
-    return <LightKeyValueLine label={label} value={value} options={options} />;
+  createKeyValueLine(label, value, styles?) {
+    return new LightKeyValueLine({ label, value, styles }).render();
   }
 
   createLabel(text, options) {
